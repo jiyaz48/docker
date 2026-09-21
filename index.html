@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎬 AMB CineLuxe · Telugu </title>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #0b0f1c 0%, #1a1f2f 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    /* main card */
+    .booking-card {
+      max-width: 1200px;
+      width: 100%;
+      background: rgba(22, 28, 45, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 2.5rem;
+      padding: 2rem 2rem 2.2rem;
+      box-shadow: 0 30px 50px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+      transition: all 0.3s ease;
+      max-height: 95vh;
+      overflow-y: auto;
+    }
+
+    /* custom scrollbar */
+    .booking-card::-webkit-scrollbar {
+      width: 8px;
+    }
+    .booking-card::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+    }
+    .booking-card::-webkit-scrollbar-thumb {
+      background: #ffd96660;
+      border-radius: 10px;
+    }
+    .booking-card::-webkit-scrollbar-thumb:hover {
+      background: #ffd96690;
+    }
+
+    /* header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo i {
+      font-size: 2.2rem;
+      color: #ffd966;
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+      transition: transform 0.2s;
+    }
+
+    .logo i:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+
+    .logo h1 {
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.9rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #fff, #ffe6a7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .badge {
+      background: rgba(255, 215, 0, 0.12);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      color: #ffd966;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* movie selection row */
+    .movie-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .movie-card {
+      flex: 1 1 180px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 1.8rem;
+      padding: 0.9rem 0.5rem 0.5rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1);
+      backdrop-filter: blur(4px);
+      position: relative;
+      min-width: 0;
+    }
+
+    .movie-card:hover {
+      background: rgba(255, 215, 0, 0.05);
+      border-color: rgba(255, 215, 0, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .movie-card.selected {
+      background: rgba(255, 215, 0, 0.12);
+      border: 1.5px solid #ffd966;
+      box-shadow: 0 0 20px -5px rgba(255, 215, 0, 0.4);
+    }
+
+    .movie-poster {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      border-radius: 1.2rem;
+      background: #202536;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 10px 15px -8px black;
+      transition: 0.2s;
+    }
+
+    .movie-card.selected .movie-poster {
+      box-shadow: 0 0 0 2px #ffd966, 0 10px 20px -5px #ffd96640;
+    }
+
+    .movie-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+
+    .movie-desc {
+      font-size: 0.65rem;
+      color: #8a94aa;
+      margin: 0.2rem 0 0.3rem;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .movie-meta {
+      font-size: 0.65rem;
+      color: #a0a8bb;
+      letter-spacing: 0.3px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      margin-bottom: 0.2rem;
+      display: inline-block;
+    }
+
+    .price-tag {
+      color: #ffd966;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 0.1rem;
+    }
+
+    /* offer badge on movie */
+    .offer-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ff6b6b;
+      color: #fff;
+      font-size: 0.55rem;
+      font-weight: 700;
+      padding: 0.25rem 0.5rem;
+      border-radius: 100px;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 10px #ff6b6b80;
+      z-index: 2;
+      text-transform: uppercase;
+    }
+
+    .offer-badge.green {
+      background: #2ecc71;
+      box-shadow: 0 4px 10px #2ecc7180;
+    }
+
+    /* showtime row */
+    .showtime-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #b9c2d4;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    .section-label i {
+      color: #ffd966;
+    }
+
+    .time-slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .time-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #eef2f8;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      backdrop-filter: blur(4px);
+      flex: 0 0 auto;
+    }
+
+    .time-btn i {
+      font-size: 0.8rem;
+      color: #ffd966;
+    }
+
+    .time-btn:hover {
+      background: rgba(255, 215, 0, 0.1);
+      border-color: rgba(255, 215, 0, 0.5);
+    }
+
+    .time-btn.selected {
+      background: #ffd966;
+      border-color: #ffd966;
+      color: #0b0f1c;
+    }
+
+    .time-btn.selected i {
+      color: #0b0f1c;
+    }
+
+    /* seat layout */
+    .seat-area {
+      background: rgba(10, 14, 23, 0.7);
+      border-radius: 2rem;
+      padding: 1.5rem 1.5rem 1rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 215, 0, 0.15);
+    }
+
+    .screen-indicator {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .screen-indicator span {
+      background: linear-gradient(to bottom, #ffd96620, transparent);
+      color: #b9c2d4;
+      font-weight: 500;
+      letter-spacing: 5px;
+      font-size: 0.8rem;
+      padding: 0.5rem 2rem;
+      border-radius: 100px;
+      border-top: 2px solid #ffd96640;
+      display: inline-block;
+      backdrop-filter: blur(8px);
+    }
+
+    .seats-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    .seat-row {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .seat {
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 0.8rem 0.8rem 0.4rem 0.4rem;
+      background: #2a3146;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #7c88a1;
+      cursor: pointer;
+      transition: 0.15s;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      box-shadow: 0 4px 0 #121725;
+      user-select: none;
+    }
+
+    .seat.available:hover {
+      background: #ffd96680;
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 4px 0 #b28b1a;
+    }
+
+    .seat.selected {
+      background: #ffd966;
+      color: #0b0f1c;
+      box-shadow: 0 4px 0 #b28b1a;
+      font-weight: 700;
+      border-color: #ffe69b;
+    }
+
+    .seat.occupied {
+      background: #1c212e;
+      color: #4a5168;
+      box-shadow: 0 4px 0 #0e111a;
+      cursor: not-allowed;
+      opacity: 0.6;
+      border: 1px solid #2e3548;
+    }
+
+    .seat.available {
+      background: #2f364b;
+      color: #b9c2d4;
+    }
+
+    /* legend */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: #9aa3b8;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .legend-box {
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 0.5rem 0.5rem 0.3rem 0.3rem;
+    }
+
+    .legend-box.available {
+      background: #2f364b;
+      border: 1px solid #3d465e;
+    }
+
+    .legend-box.selected {
+      background: #ffd966;
+    }
+
+    .legend-box.occupied {
+      background: #1c212e;
+      border: 1px solid #2e3548;
+      opacity: 0.7;
+    }
+
+    /* ---------- SNACKS SECTION ---------- */
+    .snacks-section {
+      background: rgba(255, 215, 0, 0.04);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      border-radius: 2rem;
+      padding: 1.5rem 1.5rem 1.2rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .snacks-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .snack-item {
+      flex: 1 1 140px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 1.5rem;
+      padding: 0.8rem 0.8rem 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .snack-item:hover {
+      background: rgba(255, 215, 0, 0.06);
+      border-color: rgba(255, 215, 0, 0.3);
+    }
+
+    .snack-item.selected {
+      background: rgba(255, 215, 0, 0.12);
+      border: 1.5px solid #ffd966;
+      box-shadow: 0 0 15px -5px #ffd96660;
+    }
+
+    .snack-emoji {
+      font-size: 1.8rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px black);
+    }
+
+    .snack-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .snack-name {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .snack-price {
+      font-size: 0.75rem;
+      color: #ffd966;
+      font-weight: 700;
+    }
+
+    .snack-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.2rem;
+    }
+
+    .snack-qty button {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #fff;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.15s;
+      line-height: 1;
+    }
+
+    .snack-qty button:hover {
+      background: #ffd966;
+      color: #0b0f1c;
+    }
+
+    .snack-qty span {
+      font-weight: 600;
+      font-size: 0.8rem;
+      min-width: 1rem;
+      text-align: center;
+      color: #fff;
+    }
+
+    /* ---------- DISCOUNT & OFFERS ---------- */
+    .discount-section {
+      background: rgba(46, 204, 113, 0.05);
+      border: 1px solid rgba(46, 204, 113, 0.2);
+      border-radius: 2rem;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      justify-content: space-between;
+    }
+
+    .discount-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .discount-icon {
+      background: #2ecc71;
+      color: #fff;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 0 20px #2ecc7140;
+      flex-shrink: 0;
+    }
+
+    .discount-text {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #b9c2d4;
+    }
+
+    .discount-text strong {
+      color: #fff;
+    }
+
+    .discount-select {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #eef2f8;
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      outline: none;
+      transition: 0.2s;
+      min-width: 180px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffd966' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+    }
+
+    .discount-select:hover {
+      border-color: #ffd96660;
+      background-color: rgba(255, 215, 0, 0.05);
+    }
+
+    .discount-select option {
+      background: #1a1f2f;
+      color: #fff;
+    }
+
+    .applied-discount {
+      color: #2ecc71;
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* summary bar */
+    .summary-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 3rem;
+      padding: 0.8rem 1.2rem 0.8rem 1.8rem;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      backdrop-filter: blur(10px);
+      gap: 1rem;
+    }
+
+    .summary-info {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      color: #eef2f8;
+    }
+
+    .summary-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+
+    .summary-item i {
+      color: #ffd966;
+      font-size: 0.95rem;
+      width: 1.1rem;
+      text-align: center;
+    }
+
+    .total-price {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #ffd966;
+      letter-spacing: -0.5px;
+      background: rgba(255, 215, 0, 0.1);
+      padding: 0.2rem 1rem;
+      border-radius: 2rem;
+      line-height: 1.4;
+    }
+
+    .book-btn {
+      background: #ffd966;
+      border: none;
+      color: #0b0f1c;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      box-shadow: 0 8px 0 #b28b1a, 0 10px 25px -5px #ffd96680;
+      border: 1px solid #ffe69b;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .book-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 0 #b28b1a, 0 15px 30px -5px #ffd966;
+      background: #ffe28c;
+    }
+
+    .book-btn:active:not(:disabled) {
+      transform: translateY(4px);
+      box-shadow: 0 4px 0 #b28b1a, 0 10px 20px -5px #ffd966;
+    }
+
+    .book-btn:disabled {
+      opacity: 0.5;
+      transform: translateY(0);
+      box-shadow: 0 4px 0 #7a5f14;
+      pointer-events: none;
+      filter: grayscale(0.5);
+    }
+
+    /* booking confirmation toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #ffd966;
+      color: #0b0f1c;
+      font-weight: 700;
+      padding: 1rem 2.5rem;
+      border-radius: 3rem;
+      box-shadow: 0 20px 40px -10px black;
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+      z-index: 1000;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid #ffe69b;
+      pointer-events: none;
+      opacity: 0;
+      max-width: 90vw;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      .booking-card {
+        padding: 1.2rem;
+        border-radius: 1.8rem;
+      }
+      .logo h1 {
+        font-size: 1.4rem;
+      }
+      .logo i {
+        font-size: 1.6rem;
+      }
+      .movie-card {
+        flex: 1 1 130px;
+      }
+      .movie-poster {
+        font-size: 2.2rem;
+      }
+      .movie-title {
+        font-size: 0.8rem;
+      }
+      .movie-desc {
+        font-size: 0.55rem;
+        -webkit-line-clamp: 1;
+      }
+      .seat {
+        width: 1.7rem;
+        height: 1.7rem;
+        font-size: 0.55rem;
+      }
+      .summary-bar {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 2rem;
+        padding: 1.2rem;
+      }
+      .book-btn {
+        justify-content: center;
+      }
+      .time-btn {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.75rem;
+      }
+      .snack-item {
+        flex: 1 1 120px;
+        padding: 0.6rem;
+      }
+      .snack-emoji {
+        font-size: 1.4rem;
+      }
+      .snack-name {
+        font-size: 0.7rem;
+      }
+      .discount-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.8rem;
+      }
+      .discount-left {
+        justify-content: center;
+      }
+      .discount-select {
+        width: 100%;
+      }
+      .legend {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="booking-card">
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <i class="fas fa-film"></i>
+      <h1>CineVerse</h1>
+    </div>
+    <div class="badge">
+      <i class="fas fa-ticket-alt"></i> TELUGU & MORE
+    </div>
+  </div>
+
+  <!-- Movie selection -->
+  <div class="movie-row" id="movieRow"></div>
+
+  <!-- Showtime -->
+  <div class="showtime-section">
+    <div class="section-label">
+      <i class="fas fa-clock"></i> Select showtime
+    </div>
+    <div class="time-slots" id="timeSlots"></div>
+  </div>
+
+  <!-- Seat selection area -->
+  <div class="seat-area">
+    <div class="screen-indicator">
+      <span>SCREEN</span>
+    </div>
+    <div class="seats-grid" id="seatsGrid"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-box available"></div> Available</div>
+      <div class="legend-item"><div class="legend-box selected"></div> Selected</div>
+      <div class="legend-item"><div class="legend-box occupied"></div> Occupied</div>
+    </div>
+  </div>
+
+  <!-- SNACKS SECTION -->
+  <div class="snacks-section" id="snacksSection">
+    <div class="section-label">
+      <i class="fas fa-utensils"></i> Add snacks & drinks
+    </div>
+    <div class="snacks-grid" id="snacksGrid"></div>
+  </div>
+
+  <!-- DISCOUNT & OFFERS SECTION -->
+  <div class="discount-section">
+    <div class="discount-left">
+      <div class="discount-icon">
+        <i class="fas fa-percent"></i>
+      </div>
+      <div class="discount-text">
+        <strong>Credit Card Offers</strong><br>
+        <span style="font-size:0.75rem;">Get instant discount on select cards</span>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap;">
+      <select class="discount-select" id="discountSelect">
+        <option value="none">No offer</option>
+        <option value="hdfc">HDFC Bank – 10% off</option>
+        <option value="icici">ICICI Bank – 15% off</option>
+        <option value="sbi">SBI Card – 20% off</option>
+        <option value="axis">Axis Bank – 12% off</option>
+      </select>
+      <div class="applied-discount" id="appliedDiscount"></div>
+    </div>
+  </div>
+
+  <!-- Summary & book -->
+  <div class="summary-bar">
+    <div class="summary-info">
+      <div class="summary-item">
+        <i class="fas fa-chair"></i>
+        <span id="selectedCount">0</span> seats
+      </div>
+      <div class="summary-item">
+        <i class="fas fa-utensils"></i>
+        <span id="snackCount">0</span> snacks
+      </div>
+      <div class="summary-item">
+        <i class="fas fa-tag"></i>
+        <span id="totalPrice">$0</span>
+      </div>
+    </div>
+    <button class="book-btn" id="bookBtn" disabled>
+      <i class="fas fa-ticket-alt"></i> BOOK NOW
+    </button>
+  </div>
+</div>
+
+<!-- Toast confirmation -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i> <span id="toastMsg">Booking confirmed!</span>
+</div>
+
+<script>
+  (function() {
+    // ---------- DATA ----------
+    const movies = [
+      {
+        id: 'rrr',
+        title: 'RRR',
+        emoji: '🔥',
+        price: 13.5,
+        meta: 'UA',
+        desc: 'A fearless revolutionary and an officer fight for freedom.',
+        offer: 'BUY 1 GET 1',
+        offerType: 'green'
+      },
+      {
+        id: 'baahubali',
+        title: 'Baahubali 2',
+        emoji: '👑',
+        price: 12.0,
+        meta: 'UA',
+        desc: 'Shiva, son of Bahubali, learns of his heritage.',
+        offer: '20% OFF',
+        offerType: 'red'
+      },
+      {
+        id: 'pushpa',
+        title: 'Pushpa: The Rise',
+        emoji: '🌿',
+        price: 14.0,
+        meta: 'A',
+        desc: 'A laborer rises in the world of red sandalwood smuggling.',
+        offer: 'FLAT ₹50 OFF',
+        offerType: 'red'
+      },
+      {
+        id: 'dune',
+        title: 'Dune: Part Two',
+        emoji: '🏜️',
+        price: 14.5,
+        meta: 'PG-13',
+        desc: 'Paul Atreides unites with the Fremen to seek revenge.',
+        offer: null,
+        offerType: null
+      },
+      {
+        id: 'oppenheimer',
+        title: 'Oppenheimer',
+        emoji: '⚛️',
+        price: 13.0,
+        meta: 'R',
+        desc: 'The story of the man who created the atomic bomb.',
+        offer: null,
+        offerType: null
+      },
+      {
+        id: 'barbie',
+        title: 'Barbie',
+        emoji: '🎀',
+        price: 12.5,
+        meta: 'PG-13',
+        desc: 'Barbie suffers a crisis that leads her to the real world.',
+        offer: 'FREE SNACK',
+        offerType: 'green'
+      }
+    ];
+
+    const showtimes = [
+      { id: 't1', label: '10:30 AM', icon: 'fa-sun' },
+      { id: 't2', label: '1:15 PM', icon: 'fa-cloud-sun' },
+      { id: 't3', label: '4:00 PM', icon: 'fa-cloud' },
+      { id: 't4', label: '6:45 PM', icon: 'fa-moon' },
+      { id: 't5', label: '9:30 PM', icon: 'fa-star' }
+    ];
+
+    // snacks data
+    const snacksList = [
+      { id: 'popcorn', name: 'Popcorn (L)', emoji: '🍿', price: 6.0 },
+      { id: 'coke', name: 'Coca-Cola', emoji: '🥤', price: 3.5 },
+      { id: 'nachos', name: 'Nachos', emoji: '🧀', price: 5.0 },
+      { id: 'samosa', name: 'Samosa (2pcs)', emoji: '🥟', price: 4.0 },
+      { id: 'coffee', name: 'Coffee', emoji: '☕', price: 3.0 }
+    ];
+
+    // credit card discounts
+    const cardDiscounts = {
+      none:  { label: '', percent: 0 },
+      hdfc:  { label: 'HDFC 10% off', percent: 10 },
+      icici: { label: 'ICICI 15% off', percent: 15 },
+      sbi:   { label: 'SBI 20% off', percent: 20 },
+      axis:  { label: 'Axis 12% off', percent: 12 }
+    };
+
+    // ---------- STATE ----------
+    let selectedMovieId = 'rrr';
+    let selectedTimeId = 't1';
+    let selectedSeats = new Set();
+    let snackQuantities = {}; // { snackId: qty }
+    let selectedDiscountKey = 'none';
+
+    // seat map
+    const rows = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const seatsPerRow = 8;
+
+    // pre-occupied seats
+    const occupiedSeats = new Set([
+      'A3','A4','B1','B7','C2','C6','D4','D5','E2','E8','F1','F7'
+    ]);
+
+    // ---------- DOM elements ----------
+    const movieRowEl = document.getElementById('movieRow');
+    const timeSlotsEl = document.getElementById('timeSlots');
+    const seatsGridEl = document.getElementById('seatsGrid');
+    const snacksGridEl = document.getElementById('snacksGrid');
+    const selectedCountEl = document.getElementById('selectedCount');
+    const snackCountEl = document.getElementById('snackCount');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const bookBtn = document.getElementById('bookBtn');
+    const toastEl = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    const discountSelect = document.getElementById('discountSelect');
+    const appliedDiscountEl = document.getElementById('appliedDiscount');
+
+    // ---------- RENDER MOVIES ----------
+    function renderMovies() {
+      movieRowEl.innerHTML = movies.map(movie => {
+        let offerHtml = '';
+        if (movie.offer) {
+          const offerClass = movie.offerType === 'green' ? 'green' : '';
+          offerHtml = `<div class="offer-badge ${offerClass}">${movie.offer}</div>`;
+        }
+        return
